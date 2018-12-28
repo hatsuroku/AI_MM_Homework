@@ -134,8 +134,33 @@ def cal_coefficient(k):
         select(g, i, k, 1, selected, coefficient)
     return coefficient
 
-
-if __name__ == '__main__':
+def test_coefficient():
     coefficient = cal_coefficient(10)
     for i in range(len(coefficient) - 1, -1, -1):
         print(i, " : ",coefficient[i])
+
+
+# 用于计算扰动方程的根
+# 测试扰动方程对根的影响
+def f(k, eps):
+    # q(xk) = k ^ 9
+    up = k**9 * eps
+    down = 1
+    for j in range(1, 10+1):
+        if(j != k):
+            down *= (k - j)
+    return k + up/down
+
+# 测试不同的扰动因子
+def test_disturbance_factor():
+    eps = [1e-2, 1e-4, 1e-6]
+    for e in eps:
+        print("=========eps : ", e, "===========")
+        for i in range(1, 10+1):
+            print(f(i, e))
+        print("\n")
+
+
+if __name__ == '__main__':
+    # test_coefficient()
+    test_disturbance_factor()
